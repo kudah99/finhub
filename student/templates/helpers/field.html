@@ -1,0 +1,10 @@
+<div class="{% if field.errors %}errors {% endif %}flex group mb-6 flex-col last:mb-4">
+    {% include "helpers/label.html" with field=field %}
+
+    {{ field }}
+
+    
+    {% include "helpers/form_errors.html" with errors=field.errors %}
+
+    {% include "helpers/help_text.html" with help_text=field.help_text %}
+</div>

@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .form-select {
+      @apply block w-full p-3 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500;
+
+    };
+    .form-input {
+        @apply bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500;
+
+    };
+    .btn-search {
+        @apply bg-teal-500 border border-transparent flex flex-row font-medium  items-center px-5 py-2 rounded-md justify-center text-sm text-white w-full md:w-auto;
+    }
+    .my-container {
+        @apply flex flex-col md:flex-row items-center p-4 md:p-6 space-y-4 md:space-y-0 md:space-x-4 rounded-xl bg-gray-50 dark:bg-gray-800 hover:shadow-xl transform hover:scale-105 transition duration-500;
+    }
+  }

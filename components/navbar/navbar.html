@@ -1,0 +1,193 @@
+<div
+  class="border-b border-gray-200 relative z-40 dark:border-gray-800 lg:px-4"
+>
+  <div class="container max-w-7xl mx-auto">
+    <div class="flex flex-row flex-wrap items-center px-6 lg:px-0">
+      <div class="flex flex-row items-center">
+        <a
+          class="flex flex-row font-bold items-center text-lg sm:text-xl md:text-2xl lg:text-3xl dark:text-white"
+          href="/"
+        >
+          <img src="media/images/icon.jpg"  style="height: 70px; width: 100px;">
+        </a>
+      </div>
+
+      <nav class="hidden flex-row gap-12 ml-auto lg:flex" x-data="{ activeLink: window.location.pathname }">
+        <a
+          href=""
+          class="flex flex-grow flex-row group items-center leading-[18px] py-4 hover:text-purple-700  lg:py-6"
+          x-bind:class="{ border-b: activeLink === '/' }"
+        >
+          <span
+            class="text-gray-700 group-hover:text-purple-700 dark:text-gray-300 group-hover:dark:text-white "
+           
+          >
+            Home
+          </span>
+        </a>
+
+        <a
+          href="/learn/"
+          class="flex flex-grow flex-row group items-center leading-[18px] py-4 hover:text-purple-700  lg:py-6"
+        >
+          <span
+            class="text-gray-700 group-hover:text-purple-700 dark:text-gray-300 group-hover:dark:text-white"
+          >
+          Learn
+          </span>
+        </a>
+        
+        <a
+          href="/admin/"
+          class="flex flex-grow flex-row group items-center leading-[18px] py-4 hover:text-purple-700  lg:py-6"
+          x-bind:class="{ border-b: activeLink === '/medical_specialist' }"
+        >
+          <span
+            class="text-gray-700 group-hover:text-purple-700 dark:text-gray-300 group-hover:dark:text-white "
+          >
+          Staff access
+          </span>
+        </a>
+
+        
+
+      </nav>
+
+      <div class="flex gap-6 items-center ml-auto lg:ml-8 lg:order-3">
+        <div class="relative" x-data="{ openTheme: false }">
+          <span
+            class="block cursor-pointer h-[18px] leading-none hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+            x-on:click="openTheme = !openTheme"
+          >
+            <span
+              class="material-symbols-outlined leading-none"
+              x-text="adminTheme == 'dark' &amp;&amp; 'dark_mode' || adminTheme == 'light' &amp;&amp; 'light_mode' || 'computer'"
+              >light_mode</span
+            >
+          </span>
+
+          <nav
+            class="absolute bg-white border flex flex-col leading-none overflow-hidden py-1 -right-2 rounded shadow-lg text-sm text-gray-500 top-7 w-40 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400"
+            x-show="openTheme"
+            @click.outside="openTheme = false"
+            style="display: none"
+          >
+            <span
+              class="cursor-pointer flex flex-row leading-none mx-1 px-3 py-1.5 rounded hover:bg-gray-100 hover:text-gray-700 dark:hover:bg-gray-700 dark:hover:text-gray-200"
+              x-on:click="adminTheme = 'dark'"
+              x-bind:class="adminTheme == 'dark' &amp;&amp; 'text-primary-600 dark:text-primary-500 dark:hover:!text-primary-500 hover:!text-primary-600'"
+            >
+              <span class="material-symbols-outlined mr-2">dark_mode</span>
+              <span class="leading-none self-center">Dark</span>
+            </span>
+
+            <span
+              class="cursor-pointer flex flex-row mx-1 px-3 py-1.5 rounded hover:bg-gray-100 hover:text-gray-700 dark:hover:bg-gray-700 dark:hover:text-gray-200 text-primary-600 dark:text-primary-500 dark:hover:!text-primary-500 hover:!text-primary-600"
+              x-on:click="adminTheme = 'light'"
+              x-bind:class="adminTheme == 'light'  &amp;&amp; 'text-primary-600 dark:text-primary-500 dark:hover:!text-primary-500 hover:!text-primary-600'"
+            >
+              <span class="material-symbols-outlined mr-2">light_mode</span>
+              <span class="leading-none self-center">Light</span>
+            </span>
+
+            <span
+              class="cursor-pointer flex flex-row mx-1 px-3 py-1.5 rounded hover:bg-gray-100 hover:text-gray-700 dark:hover:bg-gray-700 dark:hover:text-gray-200"
+              x-on:click="adminTheme = 'auto'"
+              x-bind:class="adminTheme == 'auto' &amp;&amp; 'text-primary-600 dark:text-primary-500 dark:hover:!text-primary-500 hover:!text-primary-600'"
+            >
+              <span class="material-symbols-outlined mr-2">computer</span>
+              <span class="leading-none self-center">System</span>
+            </span>
+          </nav>
+        </div>
+
+        <span
+          class="bg-gray-100 border-l border-gray-200 cursor-pointer flex items-center justify-center -mr-6 p-6 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-800 lg:hidden"
+          x-on:click="openNavigation = true"
+          x-bind:class="openNavigation == true &amp;&amp; 'bg-gray-200 border-l-gray-100 dark:border-l-gray-800'"
+        >
+          <span class="material-symbols-outlined text-gray-700 dark:text-white"
+            >menu</span
+          >
+        </span>
+      </div>
+
+      <div
+        class="absolute bg-gray-200 flex items-center left-0 px-6 right-0 top-16 dark:bg-gray-800 lg:hidden"
+        x-show="openNavigation"
+        x-on:keydown.escape.window="openNavigation = false"
+        x-on:click.outside="openNavigation = false"
+        style="display: none"
+      >
+        <nav class="flex flex-col text-base w-full">
+
+
+          <a
+            href="/"
+            class="flex flex-grow flex-row group items-center leading-[18px] py-4 hover:text-purple-700  lg:py-6"
+          >
+            <span
+              class="text-gray-700 group-hover:text-purple-700 dark:text-gray-300 group-hover:dark:text-white"
+            >
+              Home
+            </span>
+
+            <span
+              class="material-symbols-outlined ml-auto relative right-0 text-lg transition-all group-hover:-right-1 group-hover:dark:text-white lg:hidden"
+              >arrow_forward</span
+            >
+          </a>
+
+          <a
+            href="/medical_specialist"
+            class="flex flex-grow flex-row group items-center leading-[18px] py-4 hover:text-purple-700  lg:py-6"
+          >
+            <span
+              class="text-gray-700 group-hover:text-purple-700 dark:text-gray-300 group-hover:dark:text-white"
+            >
+              Find a doctor
+            </span>
+
+            <span
+              class="material-symbols-outlined ml-auto relative right-0 text-lg transition-all group-hover:-right-1 group-hover:dark:text-white lg:hidden"
+              >arrow_forward</span
+            >
+          </a>
+
+          <a
+            href="/health_facility"
+            class="flex flex-grow flex-row group items-center leading-[18px] py-4 hover:text-purple-700  lg:py-6"
+          >
+            <span
+              class="text-gray-700 group-hover:text-purple-700 dark:text-gray-300 group-hover:dark:text-white"
+            >
+              Find a health facility
+            </span>
+
+            <span
+              class="material-symbols-outlined ml-auto relative right-0 text-lg transition-all group-hover:-right-1 group-hover:dark:text-white lg:hidden"
+              >arrow_forward</span
+            >
+          </a>
+
+          <a
+            href="/admin"
+            class="flex flex-grow flex-row group items-center leading-[18px] py-4 hover:text-purple-700  lg:py-6"
+          >
+            <span
+              class="text-gray-700 group-hover:text-purple-700 dark:text-gray-300 group-hover:dark:text-white"
+            >
+              Login
+            </span>
+
+            <span
+              class="material-symbols-outlined ml-auto relative right-0 text-lg transition-all group-hover:-right-1 group-hover:dark:text-white lg:hidden"
+              >arrow_forward</span
+            >
+          </a>
+
+        </nav>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% load i18n static %}
+{% block base %}
+{% include 'includes/navbar-dashboard.html' %}
+<div class="flex overflow-hidden bg-white pt-16">
+
+    {% include 'includes/sidebar.html' %}
+  
+  <div id="main-content" class="min-h-screen w-full bg-gray-50 relative overflow-y-auto  lg:ml-64 bd-content order-1 py-6">
+    <main>
+      <div class="flex items-center justify-center ">
+      {% block content %}{% endblock %}
+      </div>
+    </main>
+  </div>
+</div>
+ {% endblock %}

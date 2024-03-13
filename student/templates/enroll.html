@@ -1,0 +1,66 @@
+{% extends 'layout.html' %}
+{% block content %}
+<div class="p-4 bg-white block sm:flex items-center justify-between border-b border-gray-200 lg:mt-1.5">
+   <div class="mb-1 w-full">
+       <div class="mb-4">
+           <nav class="flex mb-5" aria-label="Breadcrumb">
+               <ol class="inline-flex items-center space-x-1 md:space-x-2">
+                 <li class="inline-flex items-center">
+                   <a href="#" class="text-gray-700 hover:text-gray-900 inline-flex items-center">
+                     <span
+              class="material-symbols-outlined ml-auto relative right-0 text-lg transition-all group-hover:-right-1 group-hover:dark:text-white lg:hidden mr-2"
+              >book</span>
+                     {{ user_enrollment.coarse }}
+                   </a>
+                 </li>
+                 
+               </ol>
+           </nav>
+           <h1 class="text-xl sm:text-2xl font-semibold text-gray-500">STATUS: {{ user_enrollment.status }}</h1>
+       </div>
+       <table class="table-fixed min-w-full divide-y divide-gray-200">
+         <thead class="bg-gray-100">
+             <tr>
+                 <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase">
+                     Started learning:
+                 </th>
+                 <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase">
+                     {{ user_enrollment.created_at}}
+                 </th>
+                 <th scope="col" class="p-4">
+                 </th>
+             </tr>
+             <tr>
+               <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase">
+                   Progress:
+               </th>
+               <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase">
+                   {{ user_enrollment.progress}}%
+               </th>
+               <th scope="col" class="p-4">
+               </th>
+           </tr>
+           <tr>
+            <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase">
+                Last accessed learning  material:
+            </th>
+            <th scope="col" class="p-4 text-left text-xs font-medium text-gray-500 uppercase">
+               {% if user_enrollment.last_content_accessed.name %}{{ user_enrollment.last_content_accessed.name}}{% else %}None found{% endif %}
+                
+            </th>
+            <th scope="col" class="p-4">
+            </th>
+        </tr>
+         </thead>
+      </table>
+       <div class="block sm:flex items-center md:divide-x md:divide-gray-100">
+
+               <button type="button" data-modal-toggle="add-product-modal" class="text-white bg-red-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium inline-flex items-center rounded-lg text-sm px-3 py-2 text-center sm:ml-auto">
+                   
+                  Revoke Enrollment
+               </button>
+           </div>
+       </div>
+   </div>
+</div>
+{% endblock %}
