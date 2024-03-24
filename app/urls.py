@@ -13,7 +13,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('learn/', include('student.urls')),
     path('', include('home.urls')),
-    path("__reload__/", include("django_browser_reload.urls"))
+    path("__reload__/", include("django_browser_reload.urls")),
+    path('martor/', include('martor.urls')),
     
 ]
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

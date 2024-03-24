@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'coarse',
     'coarse_content',
     'coarse_enrollment',
-    'bank'
+    'bank',
+    'martor'
     #'ckeditor'
 ]
 
