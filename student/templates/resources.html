@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <h1 class="text-4xl font-bold mb-4">Financial services institutions</h1>
+    <div class="absolute left-0 ml-4 mt-4 top-0">
+    </div>
+    <div class="bg-white shadow rounded-lg p-6">
+        
+        {% if coarse_content.video %}
+            <div class="mb-6">
+                <h2 class="text-2xl font-semibold mb-2">Tutorial</h2>
+                <video controls class="w-full">
+                    <source src="{{ coarse_content.video.url }}" type="video/mp4"  >
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+        {% endif %}
+        <div class="mb-6">
+            <h2 class="text-2xl font-semibold mb-2">Notes</h2>
+            <div class="text-gray-700 whitespace-pre-line">{{ coarse_content.notes }}</div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -17,8 +17,7 @@ DEBUG = env('DEBUG')
 SECRET_KEY = env('SECRET_KEY')
 
 
-ALLOWED_HOSTS = ['127.0.0.1','.vercel.app','medsearch.co.zw','.medsearch.co.zw','.now.sh']
-
+ALLOWED_HOSTS = ['127.0.0.1','.vercel.app','medsearch.co.zw','.medsearch.co.zw','.now.sh','.ngrok-free.app']
 
 # Application definition
 
@@ -43,7 +42,11 @@ INSTALLED_APPS = [
     'coarse_content',
     'coarse_enrollment',
     'bank'
+    #'ckeditor'
 ]
+
+CSRF_TRUSTED_ORIGINS = ["https://818a-197-221-254-203.ngrok-free.app",
+                        "https://www.app.cospharm.net", 'http://10.250.153.73','http://192.168.33.45']
 
 
 # AUTH_USER_MODEL = "student.CustomUser"

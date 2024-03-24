@@ -5,6 +5,7 @@ from coarse.models import Coarse
 class CoarseContent(models.Model):
     name = models.CharField(max_length=100)
     notes = models.TextField()
+    #notes = models.RichTextField()
     video = models.FileField(upload_to='coarse_content/', null=True)
     coarse = models.ForeignKey(Coarse,on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)

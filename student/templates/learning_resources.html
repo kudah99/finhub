@@ -1,0 +1,32 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<div class="container mx-auto px-4">
+    <div class="flex justify-between items-center py-6">
+        <h1 class="text-2xl font-semibold">Financial service provider in Zimbabwe</h1>
+    </div>
+    <div class="overflow-x-auto bg-white  rounded-lg p-6">
+        <table class="w-full table-auto">
+            <thead class="bg-gray-200">
+                <tr>
+                    <th class="px-4 py-2"></th>
+                    <th class="px-4 py-2">Name</th>
+                    <th class="px-4 py-2">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for bank in banks %}
+                    <tr class="bg-white">
+                        <td class="border px-4 py-2"><img src="../media/{{bank.logo}}" class="h-16 mr-2" alt="{{ bank.name}}"></td>
+                        <td class="border px-4 py-2">{{bank.name}}</td>
+                        <td class="border px-4 py-2">
+                            <a href="/learn/learning_resources_details?id={{bank.id}}" class="text-blue-500 hover:text-blue-700">View</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

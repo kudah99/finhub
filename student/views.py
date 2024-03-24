@@ -7,15 +7,20 @@ from .models import Student
 from coarse.models import Coarse
 from coarse_content.models import CoarseContent
 from coarse_enrollment.models import CoarseEnrollment
+from bank.models import Bank
 
 
 @login_required(login_url='/learn/login')
 def index(request):
-    user = get_user(request)
-    student = Student.objects.get(user=user)
-    user_enrollments = CoarseEnrollment.objects.filter(student=student)
-    print(user_enrollments.first().coarse)
-    coarses = Coarse.objects.all()
+    try:
+        user = get_user(request)
+        student = Student.objects.get(user=user)
+        user_enrollments = CoarseEnrollment.objects.filter(student=student)
+        print(user_enrollments)
+        coarses = Coarse.objects.all()
+    except (Student.DoesNotExist):
+
+        return redirect('logout')
 
     context = {
          'user': user,
@@ -43,9 +48,9 @@ def signin(request):
         password = request.POST['password']
         user = authenticate(request,username=username,password=password)
         if user is not None:
-            print(user.get_username())
-            login(request,user)
+
             messages.success(request, f'you are now logged in')
+            login(request,user)
                
             return redirect('learn')
         else:
@@ -59,6 +64,12 @@ def register(request):
     user = get_user(request)
     username = user.get_username()
 
+
+    if request.method == 'POST':
+        
+        if form.is_valid():
+            form.save(commit=True)
+            return redirect('learn')
     context = {
         'form': form,
         'user': user,
@@ -66,10 +77,6 @@ def register(request):
         'site_url': 'http://127.0.0.1:8000/',
 
     }
-    if request.method == 'POST':
-        if form.is_valid():
-            form.save(commit=True)
-            return redirect('learn')
     return render(request, 'register.html', context)
 
 def signout(request):
@@ -88,6 +95,7 @@ def enroll_start(request):
         progress=0.0
     )
     coarse_content = CoarseContent.objects.filter(coarse=coarse)
+    coarse_content = CoarseContent.objects.filter(coarse=user_enrollment.coarse)
 
     context = {
          'user': user,
@@ -105,14 +113,73 @@ def learn_start(request):
     student = Student.objects.get(user=user)
     user_enrollment_id  = request.GET.get('id', default='')
     user_enrollment = CoarseEnrollment.objects.get(id=int(user_enrollment_id))
-    coarse_content = CoarseContent.objects.filter(coarse=user_enrollment.coarse)
+    coarse_contents = CoarseContent.objects.filter(coarse=user_enrollment.coarse)
 
     context = {
          'user': user,
          'user_enrollment': user_enrollment,
          'coarse': user_enrollment.coarse,
-         'coarse_content': coarse_content
+         'coarse_contents': coarse_contents
      }
-    
 
     return render(request, 'enroll.html',context)
+
+@login_required(login_url='/learn/login')
+def learning_resources(request):
+    user = get_user(request)
+    student = Student.objects.get(user=user)
+    content_id  = request.GET.get('id', default='')
+    coarse_content = CoarseContent.objects.get(id=content_id)
+
+    context = {
+         'coarse_content': coarse_content
+     }
+
+    return render(request, 'resources.html',context)
+
+@login_required(login_url='/learn/login')
+def my_coarses(request):
+    try:
+        user = get_user(request)
+        student = Student.objects.get(user=user)
+        user_enrollments = CoarseEnrollment.objects.filter(student=student)
+        coarses = Coarse.objects.all()
+    except (Student.DoesNotExist):
+
+        return redirect('logout')
+
+    context = {
+         'user': user,
+         'user_enrollments': user_enrollments,
+         'coarses': coarses
+     }
+    return render(request, 'my_coarse.html',context)
+
+@login_required(login_url='/learn/login')
+def resources(request):
+    try:
+        user = get_user(request)
+        student = Student.objects.get(user=user)
+        user_enrollments = CoarseEnrollment.objects.filter(student=student)
+        banks = Bank.objects.all()
+    except (Student.DoesNotExist):
+        return redirect('logout')
+    context = {
+         'user': user,
+         'user_enrollments': user_enrollments,
+         'banks': banks
+     }
+    return render(request, 'learning_resources.html',context)
+
+@login_required(login_url='/learn/login')
+def learning_resources_details(request):
+    user = get_user(request)
+    student = Student.objects.get(user=user)
+    bank_id  = request.GET.get('id', default='')
+    bank = CoarseContent.objects.get(id=bank_id)
+
+    context = {
+         'bank': bank
+     }
+
+    return render(request, 'learning_resources_details.html',context)

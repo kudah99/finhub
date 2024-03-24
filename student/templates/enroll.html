@@ -63,4 +63,32 @@
        </div>
    </div>
 </div>
+
+<div class="container mx-auto px-4">
+    <div class="flex justify-between items-center py-6">
+        <h1 class="text-2xl font-semibold">Explore learning material</h1>
+    </div>
+    <div class="overflow-x-auto bg-white  rounded-lg p-6">
+        <table class="w-full table-auto">
+            <thead class="bg-gray-200">
+                <tr>
+                    <th class="px-4 py-2">Name</th>
+                    <th class="px-4 py-2">Coarse</th>
+                    <th class="px-4 py-2">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for content in coarse_contents %}
+                    <tr class="bg-white">
+                        <td class="border px-4 py-2">{{ content.name }}</td>
+                        <td class="border px-4 py-2">{{ content.coarse.name }}</td>
+                        <td class="border px-4 py-2">
+                            <a href="/learn/learning_resources?id={{content.id}}" class="text-blue-500 hover:text-blue-700">View</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
 {% endblock %}

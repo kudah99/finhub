@@ -27,24 +27,12 @@
     <div class="flex min-h-screen">
         <div class="flex flex-grow items-center justify-center mx-auto px-4">
             <div class="w-full sm:w-96">
-                <h1 class="font-semibold mb-10">
-                    <span class="block text-gray-700 dark:text-gray-200">{% trans 'Welcome back to' %}</span>
-                    <span class="block text-teal-600 text-xl">{{ site_title }}</span>
-                </h1>
-
-                {% include "helpers/messages/errornote.html" with errors=form.errors %}
+                <a href="" class="text-2xl font-semibold flex justify-center items-center mb-8 lg:mb-10">
+                    <img src="../media/images/icon.jpg" class="h-10 mr-4" alt="Windster Logo">
+                    <span class="self-center text-2xl font-bold whitespace-nowrap">{% translate 'FinHub Learner sign-up account' %}</span> 
+                </a>
 
                 {% include "helpers/messages/error.html" with errors=form.non_field_errors %}
-
-                {% if user.is_authenticated %}
-                    {% blocktranslate trimmed asvar message %}
-                        You are authenticated as {{ username }}, but are you trying to
-                        create an account. Anyway it's fine you can create another account.
-                        If you were logged in as staff please go back and logout in admin dashboard.
-                    {% endblocktranslate %}
-
-                    {% include "helpers/messages/error.html" with error=message %}
-                {% endif %}
 
                 <form action="{{ app_path }}" method="post" id="register-form">
                     {% csrf_token %}

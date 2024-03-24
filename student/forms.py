@@ -16,6 +16,7 @@ from django.http import HttpRequest
 from django.utils.translation import gettext_lazy as _
 from django.core.exceptions import ValidationError
 from .widgets import  INPUT_CLASSES
+from .models import Student
 
 UserModel = get_user_model()
 
@@ -129,7 +130,8 @@ class RegisterForm(forms.ModelForm):
     error_messages = {
         "password_mismatch": _("The two password fields didn’t match."),
     }
-
+    
+    username = UsernameField(widget=forms.TextInput(attrs={"autofocus": False}))
     password1 = forms.CharField(
         max_length=16,
         widget=forms.PasswordInput(attrs={"autocomplete": "new-password"}),
@@ -180,6 +182,9 @@ class RegisterForm(forms.ModelForm):
             user.save()
             if hasattr(self, "save_m2m"):
                 self.save_m2m()
+        Student.objects.create(
+                user=user
+            )
         return user
 
 class UserChangeForm(BaseUserChangeForm):
