@@ -1,4 +1,4 @@
-from django.shortcuts import render ,redirect
+from django.shortcuts import render ,redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import AuthenticationForm, RegisterForm
@@ -85,44 +85,40 @@ def signout(request):
 
 @login_required(login_url='/learn/login')
 def enroll_start(request):
-    user = get_user(request)
-    student = Student.objects.get(user=user)
-    coarse_id = request.GET.get('coarse', default='')
-    coarse = Coarse.objects.get(id=int(coarse_id))
-    user_enrollment = CoarseEnrollment.objects.create(
+    user = request.user
+    coarse_id = request.GET.get('coarse', '')
+    coarse = get_object_or_404(Coarse, id=coarse_id)
+    student = get_object_or_404(Student, user=user)
+    
+    user_enrollment, created = CoarseEnrollment.objects.get_or_create(
         student=student,
         coarse=coarse,
-        progress=0.0
+        defaults={'progress': 0.0}
     )
+    
     coarse_content = CoarseContent.objects.filter(coarse=coarse)
-    coarse_content = CoarseContent.objects.filter(coarse=user_enrollment.coarse)
 
     context = {
-         'user': user,
-         'user_enrollment': user_enrollment,
-         'coarse': coarse,
-         'coarse_content': coarse_content
-     }
-    
+        'user_enrollment': user_enrollment,
+        'coarse': coarse,
+        'coarse_content': coarse_content
+    }
 
-    return render(request, 'enroll.html',context)
+    return render(request, 'enroll.html', context)
 
 @login_required(login_url='/learn/login')
 def learn_start(request):
-    user = get_user(request)
-    student = Student.objects.get(user=user)
-    user_enrollment_id  = request.GET.get('id', default='')
-    user_enrollment = CoarseEnrollment.objects.get(id=int(user_enrollment_id))
+    user_enrollment_id = request.GET.get('id', '')
+    user_enrollment = get_object_or_404(CoarseEnrollment, id=user_enrollment_id, student__user=request.user)
+    
     coarse_contents = CoarseContent.objects.filter(coarse=user_enrollment.coarse)
 
     context = {
-         'user': user,
-         'user_enrollment': user_enrollment,
-         'coarse': user_enrollment.coarse,
-         'coarse_contents': coarse_contents
-     }
+        'user_enrollment': user_enrollment,
+        'coarse_contents': coarse_contents
+    }
 
-    return render(request, 'enroll.html',context)
+    return render(request, 'enroll.html', context)
 
 @login_required(login_url='/learn/login')
 def learning_resources(request):

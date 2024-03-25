@@ -1,25 +1,35 @@
-{% extends 'base.html' %}
+{% extends 'layout.html' %}
+
 {% block content %}
-<div class="container mx-auto px-4 py-8">
-    <h1 class="text-4xl font-bold mb-4">Financial services institutions</h1>
-    <div class="absolute left-0 ml-4 mt-4 top-0">
-    </div>
-    <div class="bg-white shadow rounded-lg p-6">
-        
+<div class="container mx-auto px-8 py-8">
+    <nav aria-label="Breadcrumb">
+        <ol class="list-reset py-4 pl-4 rounded flex bg-grey-light text-grey">
+            <li><a href="#" class="text-gray-500">Home</a></li>
+            <li><span class="mx-2">/</span></li>
+            <li><a href="#" class="text-gray-500">{{ coarse_content.coarse }}</a></li>
+            <li><span class="mx-2">/</span></li>
+            <li><a href="#" class="text-gray-500">{{ coarse_content.name }}</a></li>
+        </ol>
+    </nav>
+    <h1 class="text-4xl font-bold text-gray-800 mb-8">{{ coarse_content.name }}</h1>
+    <div class="bg-white shadow rounded-lg overflow-hidden">
         {% if coarse_content.video %}
-            <div class="mb-6">
-                <h2 class="text-2xl font-semibold mb-2">Tutorial</h2>
-                <video controls class="w-full">
-                    <source src="{{ coarse_content.video.url }}" type="video/mp4"  >
-                    Your browser does not support the video tag.
-                </video>
-            </div>
+        <div class="relative overflow-hidden">
+            <h2 class="text-2xl font-semibold text-gray-800 px-6 pt-6 mb-2">Tutorial {{ coarse_content.id }}</h2>
+            <video controls class="w-full h-auto">
+                <source src="{{ coarse_content.video.url }}" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
         {% endif %}
-        <div class="mb-6">
-            <h2 class="text-2xl font-semibold mb-2">Notes</h2>
-            <div class="text-gray-700 whitespace-pre-line">{{ coarse_content.notes }}</div>
+        <div class="p-6">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-4">Notes</h2>
+            <div class="text-gray-700 whitespace-pre-line text-lg">{{ coarse_content.notes }}</div>
+        </div>
+        <div class="px-6 py-4 bg-gray-50 flex justify-between items-center">
+            <a href="" class="py-2 px-4 text-sm bg-blue-500 hover:bg-blue-700 text-white rounded-lg transition duration-150 ease-in-out">Previous</a>
+            <a href="" lass="py-2 px-4 text-sm bg-green-500 hover:bg-green-700 text-white rounded-lg transition duration-150 ease-in-out">Next</a>
         </div>
     </div>
 </div>
-
 {% endblock %}
