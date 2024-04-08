@@ -2,148 +2,18 @@
 
 {% get_current_language as LANGUAGE_CODE %}
 {% get_current_language_bidi as LANGUAGE_BIDI %}
-
-{% capture as branding silent %}{% block branding %}{% endblock %}{% endcapture %}
-{% capture as pretitle silent %}{% block pretitle %}{% endblock %}{% endcapture %}
-{% capture as content_title silent %}{% block content_title %}{% if title %}{{ title }}{% endif %}{% endblock %}{% endcapture %}
-{% capture as content_subtitle silent %}{% block content_subtitle %}{% if subtitle %}{{ subtitle }}{% endif %}{% endblock %}{% endcapture %}
-{% capture as nav_global silent %}{% block nav-global %}{% endblock %}{% endcapture %}
-{% capture as nav_global_side silent %}{% block nav-global-side %}{% endblock %}{% endcapture %}
-{% capture as actions_items silent %}{% block actions-items %}{% endblock %}{% endcapture %}
 <!DOCTYPE html>
 <html lang="{{ LANGUAGE_CODE|default:"en-us" }}" dir="{{ LANGUAGE_BIDI|yesno:"rtl,ltr,auto" }}" x-data="{ adminTheme: $persist('auto').as('adminTheme') }" x-bind:class="{'dark': adminTheme === 'dark' || (adminTheme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches)}" x-cloak>
-
 <head>
-    
-    <!-- Primary Meta Tags -->
-<title>Empower Your Financial Future with FinHub</title>
-<meta name="title" content="Empower Your Financial Future with FinHub">
-<meta name="description" content="FinHub offers comprehensive financial literacy courses designed to empower individuals in Zimbabwe with the knowledge to manage their finances confidently.">
-
-<!-- Charset & Viewport for responsiveness -->
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<!-- Open Graph / Facebook -->
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://finhub-sand.vercel.app/">
-<meta property="og:title" content="Empower Your Financial Future with FinHub">
-<meta property="og:description" content="FinHub offers comprehensive financial literacy courses designed to empower individuals in Zimbabwe with the knowledge to manage their finances confidently.">
-<meta property="og:image" content="https://finhub-sand.vercel.app/media/images/icon.png">
-
-<!-- Twitter -->
-<meta property="twitter:card" content="summary_large_image">
-<meta property="twitter:url" content="https://finhub-sand.vercel.app/">
-<meta property="twitter:title" content="Empower Your Financial Future with FinHub">
-<meta property="twitter:description" content="FinHub offers comprehensive financial literacy courses designed to empower individuals in Zimbabwe with the knowledge to manage their finances confidently.">
-<meta property="twitter:image" content="https://finhub-sand.vercel.app/media/images/icon.png">
-<!-- Favicon -->
-<link rel="apple-touch-icon" sizes="180x180" href="media/images/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="media/images/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="media/images/favicon-16x16.png">
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
-    {% tailwind_preload_css %}
-    {% tailwind_css %}
-    <link href="{% static "fonts/material-symbols/styles.css" %}" rel="stylesheet">
-    <link href="{% static "css/simplebar.css" %}" rel="stylesheet">
-
-    
-    <style>
-        .bg-radial {
-            background-image: radial-gradient(ellipse 85% 60% at 50% -22%,var(--tw-gradient-from),var(--tw-gradient-to));
-        }
-        .bg-grid {
-            background-image: repeating-linear-gradient(90deg,var(--tw-gradient-from),var(--tw-gradient-from) 1px,var(--tw-gradient-to) 1px,var(--tw-gradient-to) 64px);
-        }
-        .htmx-indicator{opacity:0;transition: opacity 200ms ease-in;}
-        .htmx-request .htmx-indicator{opacity:1} 
-        .htmx-request.htmx-indicator{opacity:1} 
-
-        html {                        
-            --color-primary-50: 250 245 255;                
-            --color-primary-100: 243 232 255;
-            --color-primary-200: 233 213 255;                
-            --color-primary-300: 216 180 254;                
-            --color-primary-400: 192 132 252;                
-            --color-primary-500: 168 85 247;                
-            --color-primary-600: 147 51 234;                
-            --color-primary-700: 126 34 206;                
-            --color-primary-800: 107 33 168;                
-            --color-primary-900: 88 28 135;
-        }
-    </style>
-
-    {% for style in styles %}
-        <link href="{{ style }}" rel="stylesheet">
-    {% endfor %}
-
-    {% for script in scripts %}
-        <script src="{{ script }}"></script>
-    {% endfor %}
-
-    {% block extrastyle %}{% endblock %}
-
-    {% block extrahead %}{% endblock %}
-
-
-    {% block responsive %}
-        <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0">
-    {% endblock %}
-
-    {% block blockbots %}
-        <meta name="robots" content="NONE,NOARCHIVE">
-    {% endblock %}
-
-    {% if colors %}
-        <style>
-            html {
-                {% for name, weights in colors.items %}
-                    {% for weight, value in weights.items %}
-                        --color-{{ name }}-{{ weight }}: {{ value }};
-                    {% endfor %}
-                {% endfor %}
-            }
-            .bg-grid {
-                background-image: repeating-linear-gradient(90deg,var(--tw-gradient-from),var(--tw-gradient-from) 1px,var(--tw-gradient-to) 1px,var(--tw-gradient-to) 64px);
-            }
-        </style>
-    {% endif %}
+{% include 'includes/head.html' %} 
 </head>
-
 <body class="antialiased text-gray-500 dark:bg-gray-900 dark:text-gray-400">
     {% block base %}{% endblock %}
 
     <div id="modal-overlay" 
     class="backdrop-blur-sm bg-opacity-80 bg-gray-900 bottom-0 fixed hidden left-0 mr-1 right-0 top-0 z-50"></div>
 
-  <script src="{% static 'js/simplebar.js' %}"></script>
-  <script src="{% static 'js/alpine.js' %}"></script>
-  <script src="{% static 'js/alpine.persist.js' %}"></script>
-  <script src="{% static 'js/htmx.js' %}"></script>
-  <script src="{% static 'js/app.js' %}"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
-  
-  <script>
-    function openModal(modalId) {
-        const modal = document.getElementById(modalId);
-        if(modal) {
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
-        }
-    }
-    
-    function closeModal(modalId) {
-        const modal = document.getElementById(modalId);
-        if(modal) {
-            modal.classList.add('hidden');
-            modal.classList.remove('flex');
-        }
-    }
-    </script>
-    
+    {% include 'includes/scripts.html' %} 
 </body>
 
 </html>

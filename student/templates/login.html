@@ -1,84 +1,66 @@
-{% extends 'base.html' %}
+{% extends 'base-fullscreen.html' %}
+{% load static %}
 
-{% load i18n static %}
+{% block content %}
 
-{% block extrastyle %}
-    {{ block.super }}
-    {{ form.media }}
-{% endblock %}
+  <section>
+    <div class="relative flex items-center p-0 overflow-hidden bg-center bg-cover min-h-75-screen">
+      <div class="container z-10">
+        <div class="flex flex-wrap mt-0 -mx-3">
+          <div class="flex flex-col w-full max-w-full px-3 mx-auto md:flex-0 shrink-0 md:w-6/12 lg:w-5/12 xl:w-4/12">
+            <div class="relative flex flex-col min-w-0 mt-32 break-words bg-transparent border-0 shadow-none rounded-2xl bg-clip-border">
+              <div class="p-6 pb-0 mb-0 bg-transparent border-b-0 rounded-t-2xl">
+                <h3 class="relative z-10 text-transparent bg-gradient-to-tl from-teal-900 to-teal-200 bg-clip-text text-3xl">Login into your account</h3>
+              </div>
+              <div class="flex-auto p-6">
+                <form method="post" role="form">
+                  {% csrf_token %}
+                  
+                  {% if form.non_field_errors %}
+                    {% for error in form.non_field_errors %}
+                      <span class="block my-2 text-red-600 text-sm">{{ error }}</span>
+                    {% endfor %}
+                  {% endif %}
 
-{% block bodyclass %}{{ block.super }}bg-gray-50 login dark:bg-gray-900{% endblock %}
-
-{% block usertools %}{% endblock %}
-
-{% block nav-global %}{% endblock %}
-
-{% block nav-sidebar %}{% endblock %}
-
-{% block content_title %}{% endblock %}
-
-{% block breadcrumbs %}{% endblock %}
-
-{% block title %}
-    {{ title }} | {{ site_title }}
-{% endblock %}
-
-{% block base %}
-    <div class="flex min-h-screen">
-        <div class="flex flex-grow items-center justify-center mx-auto px-4">
-            <div class="w-full sm:w-96">
-                <a href="" class="text-2xl font-semibold flex justify-center items-center mb-8 lg:mb-10">
-                    <img src="../media/images/icon.jpg" class="h-10 mr-4" alt="Windster Logo">
-                    <span class="self-center text-2xl font-bold whitespace-nowrap">{% translate 'FinHub Learner account login'%}</span> 
-                </a>
-                {% if messages %}
-                {% for message in messages %}
-                <span class="text-xs text-red-500 mb-3">{{message}}</span>
-                {% endfor %}
-                
-                 {% endif %}
-                {% if user.is_authenticated %}
-                    {% include "helpers/messages/error.html" with error=message %}
-                {% endif %}
-
-                <form action="{{ app_path }}" method="post" id="login-form">
-                    {% csrf_token %}
-
-                    {% include "helpers/field.html" with field=form.username %}
-
-                    {% include "helpers/field.html" with field=form.password %}
-
-
-                    <div class="submit-row">
-                        <button type="submit" class="bg-teal-600 border border-transparent flex flex-row font-semibold group items-center justify-center py-2 rounded-md text-sm text-white w-full">
-                            {% translate 'Log in' %}
-
-                            <i class="material-symbols-outlined ml-2 relative right-0 text-lg transition-all group-hover:-right-1">arrow_forward</i>
-                        </button>
+                  {% for field in form %}
+                  <label class="mb-2 ml-1 font-bold text-xs text-slate-700">{{ field.label }}</label>
+                  <div class="mb-4">
+                    {{ field }}
+                    <span class="block my-2 text-red-600 text-sm">{{ field.errors }}</span>
+                  </div>
+                  {% endfor %}
+                  <div class="flex justify-between">
+                    <div class="min-h-6 mb-0.5 block pl-12">
+                      <input id="rememberMe" class="mt-0.54 rounded-10 duration-250 ease-soft-in-out after:rounded-circle after:shadow-soft-2xl after:duration-250 checked:after:translate-x-5.25 h-5 relative float-left -ml-12 w-10 cursor-pointer appearance-none border border-solid border-gray-200 bg-slate-800/10 bg-none bg-contain bg-left bg-no-repeat align-top transition-all after:absolute after:top-px after:h-4 after:w-4 after:translate-x-px after:bg-white after:content-[''] checked:border-slate-800/95 checked:bg-slate-800/95 checked:bg-none checked:bg-right" type="checkbox" checked="" />
+                      <label class="mb-2 ml-1 font-normal cursor-pointer select-none text-sm text-slate-700" for="rememberMe">Remember me</label>
                     </div>
-
-                    <div class="password-reset-link mt-5">
-                       <span> {% translate 'Do not have an account? ' %}<a href="/learn/register" class="text-teal-500">
-                            {% translate 'create account' %}
-                        </a> </span>
+                    <div>
+                      <p class="mx-auto mb-6 leading-normal text-sm">
+                        <a href="" class="relative z-10 font-semibold text-transparent bg-gradient-to-tl from-teal-600 to-teal-400 bg-clip-text">Forgot Password?</a>
+                      </p>
                     </div>
+                  </div>
+                  <div class="text-center">
+                    <button type="submit" class="inline-block w-full px-6 py-3 mt-6 mb-0 font-bold text-center text-white uppercase align-middle transition-all bg-transparent border-0 rounded-lg cursor-pointer shadow-soft-md bg-x-25 bg-150 leading-pro text-xs ease-soft-in tracking-tight-soft bg-gradient-to-tl from-teal-600 to-teal-400 hover:scale-102 hover:shadow-soft-xs active:opacity-85">Sign in</button>
+                  </div>
                 </form>
+              </div>
+              <div class="p-6 px-1 pt-0 text-center bg-transparent border-t-0 border-t-solid rounded-b-2xl lg:px-2">
+                <p class="mx-auto mb-6 leading-normal text-sm">
+                  Don't have an account?
+                  <a href="{% url 'register' %}" class="relative z-10 font-semibold text-transparent bg-gradient-to-tl from-teal-600 to-teal-400 bg-clip-text">Sign up</a>
+                </p>
+              </div>
             </div>
-
-            {% if site_url %}
-                <div class="absolute left-0 ml-4 mt-4 top-0">
-                    <a href="{{ site_url }}" class="flex font-medium items-center text-sm text-teal-600">
-                        <span class="material-symbols-outlined mr-2">arrow_back</span> {% trans 'Return to site' %}
-                    </a>
-                </div>
-            {% endif %}
+          </div>
+          <div class="w-full max-w-full px-3 lg:flex-0 shrink-0 md:w-6/12">
+            <div class="absolute top-0 hidden w-3/5 h-full -mr-32 overflow-hidden -skew-x-10 -right-40 rounded-bl-xl md:block">
+              <div class="absolute inset-x-0 top-0 z-0 h-full -ml-16 bg-cover skew-x-10" style="background-image: url('{% static 'assets/img/merlin_132485441_8a30c8a2-59fb-4f83-9e78-38d57720fcd6-articleLarge-removebg-preview.png' %}')"></div>
+            </div>
+          </div>
         </div>
-
-        {% if image %}
-            <div class="bg-cover flex-grow hidden max-w-3xl xl:max-w-4xl xl:block" style="background-image: url('{{ image }}')">
-            </div>
-        {% endif %}
+      </div>
     </div>
+  </section>
 
-    
-{% endblock %}
+{% endblock content %}

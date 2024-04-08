@@ -1,9 +1,12 @@
 from django.shortcuts import render ,redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .forms import AuthenticationForm, RegisterForm
+from .forms import LoginForm, RegistrationForm
 from django.contrib.auth import get_user,authenticate,login,logout,get_user_model
+from django.contrib.auth.views import LoginView, PasswordChangeView, PasswordResetView, PasswordResetConfirmView
 from .models import Student
+from django.views.generic import CreateView
+from django.urls import reverse_lazy
 from coarse.models import Coarse
 from coarse_content.models import CoarseContent
 from coarse_enrollment.models import CoarseEnrollment
@@ -19,7 +22,12 @@ def index(request):
         print(user_enrollments)
         coarses = Coarse.objects.all()
     except (Student.DoesNotExist):
-
+        if user is not None:
+            if user.is_staff:
+                logout(request)
+            else:
+                Student.objects.create(user=user)
+                return redirect('learn')
         return redirect('logout')
 
     context = {
@@ -29,55 +37,22 @@ def index(request):
      }
     return render(request, 'home.html',context)
 
-def signin(request):
-    form = AuthenticationForm()
-    user = get_user(request)
-    username = user.get_username()
+class UserLoginView(LoginView):
+  template_name = 'login.html'
+  form_class = LoginForm
+  
+  def get_success_url(self) -> str:
+      return reverse_lazy('learn')
 
-    context = {
-        'form': form,
-        'user': user,
-        'username': username,
-        'site_url': 'http://127.0.0.1:8000/',
-
-    }
-
-    if request.method == 'POST':
-        messages.success(request, f'Please wait....')
-        username =  request.POST['username']
-        password = request.POST['password']
-        user = authenticate(request,username=username,password=password)
-        if user is not None:
-
-            messages.success(request, f'you are now logged in')
-            login(request,user)
-               
-            return redirect('learn')
-        else:
-            messages.error(request, f'Log-in attempt failed!!')
-    
-    return render(request, 'login.html',context)
-
-def register(request):
-
-    form = RegisterForm(request.POST)
-    user = get_user(request)
-    username = user.get_username()
+class UserRegistration(CreateView):
+   template_name = 'register.html'
+   form_class = RegistrationForm
+   success_url = "/learn/"
 
 
-    if request.method == 'POST':
-        
-        if form.is_valid():
-            form.save(commit=True)
-            return redirect('learn')
-    context = {
-        'form': form,
-        'user': user,
-        'username': username,
-        'site_url': 'http://127.0.0.1:8000/',
-
-    }
-    return render(request, 'register.html', context)
+def create_student(request):
+    logout(request)
+    return redirect('learn')
 
 def signout(request):
     logout(request)
