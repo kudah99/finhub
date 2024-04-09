@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'tailwind',
     'django_browser_reload',
     'import_export',
+    'storages',
     
     'home',
     'theme',
@@ -167,7 +168,7 @@ AWS_S3_OBJECT_PARAMETERS = {
 
 PUBLIC_MEDIA_LOCATION = 'media'
 MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{PUBLIC_MEDIA_LOCATION}/'
-DEFAULT_FILE_STORAGE = 'core.storage_backends.PublicMediaStorage'
+DEFAULT_FILE_STORAGE = 'app.storage_backends.PublicMediaStorage'
 
 # For serving static files directly from S3
 AWS_S3_URL_PROTOCOL = 'https'
