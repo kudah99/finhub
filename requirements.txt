@@ -18,6 +18,8 @@ django-environ
 django-import-export
 django-resized
 django-tailwind
+django-storages
+boto3
 djangorestframework==3.14.0
 et-xmlfile==1.1.0
 idna==3.6

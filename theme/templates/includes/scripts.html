@@ -1,6 +1,9 @@
 {% load static %}
 
 <script src="{% static 'assets/js/plugins/chartjs.min.js' %}" async></script>
+
+<script src="{% static 'js/aos.js' %}" async></script>
+
 <!-- plugin for scrollbar  -->
 <script src="{% static 'assets/js/plugins/perfect-scrollbar.min.js' %}" async></script>
 <!-- github button -->
@@ -14,5 +17,7 @@ defer
 src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
 ></script>
 <script defer data-domain="unfoldadmin.com" src="https://plausible.io/js/script.js" nonce="PzAErQEY7D7bgTuri+jP4A=="></script>    
+<script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
 <!-- main script file  -->
 {% include 'includes/soft-ui-dashboard-tailwind.html' %}
+

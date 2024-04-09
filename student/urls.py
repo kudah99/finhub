@@ -10,6 +10,6 @@ urlpatterns = [
     path('learn_start', views.learn_start, name='learn_start'),
     path('learning_resources', views.learning_resources, name="learning_resources"),
     path('my-coarses', views.my_coarses, name="my_coarses"),
-    path('resources', views.resources, name="resources"),
+    path('resources', views.finServicesCategory, name="resources"),
     path('learning_resources_details', views.learning_resources_details, name="learning_resources_details"),
 ]

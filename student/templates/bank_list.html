@@ -1,0 +1,31 @@
+<!-- bank_list.html -->
+<div class="overflow-x-auto bg-white  overflow-y-auto relative">
+    <nav aria-label="Breadcrumb">
+        <ol class="list-reset py-4 pl-4 rounded flex bg-grey-light text-grey">
+            <li><a href="/learn/resources" class="text-teal-500">Financial service providers</a></li>
+            <li><span class="mx-2">/</span></li>
+            <li><a href="#" class="text-gray-500">{{ category.name}} service</a></li>
+            <li><span class="mx-2">/</span></li>
+        </ol>
+    </nav>
+    <div class="container p-6">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 ftco-animate fadeInUp ftco-animated">
+            {% for bank in banks %}
+            <div class="border rounded-lg p-4 hover:bg-teal-500 hover:text-white">
+                <img src="{{ bank.logo.url }}" alt="{{ bank.name }}" class="w-full h-16 mb-2">
+                <h3 class="text-lg" >{{ bank.name }}</h3>
+                <p id="description">{{ bank.services }} </p><button id="toggleContext" class="btn btn-link text-blue-500 hover:underline">
+                    Read More
+                </button>
+                <div class="mt-5">
+                    <a href="{{ bank.link }}" class="block w-full mt-5 py-1 text-center text-white bg-teal-500 border border-primary rounded-b hover:bg-transparent hover:text-black transition">
+                        Visit Website
+                        <i class="material-symbols-outlined ml-2 relative right-0 text-lg transition-all group-hover:-right-1">arrow_forward</i>
+                      </a>
+                </div>
+                
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>

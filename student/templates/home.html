@@ -26,7 +26,7 @@
             {% if user_enrollments %}
             {% for enrollment in user_enrollments %}
             <div
-              class="bg-gray-50 flex flex-row gap-4 group px-4 py-5 rounded-md transition-all"
+              class="bg-gray-50 flex flex-row gap-4 group px-4 py-5 rounded-md transition-all ftco-animate fadeInUp ftco-animated"
             >
               <!-- Enrollment Details -->
               <div>
@@ -68,9 +68,9 @@
         </div>
         <!-- Courses Display -->
         <div class="block sm:flex items-center md:divide-x md:divide-gray-100">
-          <div class="my-4 lg:my-8 gap-8 grid md:grid-cols-2 lg:grid-cols-3 p-2">
+          <div class="my-4 lg:my-8 gap-8 grid md:grid-cols-2 lg:grid-cols-3 p-2 ">
             {% for coarse in coarses %}
-            <div class="bg-white shadow rounded overflow-hidden group">
+            <div class="bg-white shadow rounded overflow-hidden group ftco-animate fadeInLeft ftco-animated">
               <div class="relative">
                 <img src="../media/{{ coarse.image }}" alt="{{ coarse.name }}" class="w-full h-64">
               </div>

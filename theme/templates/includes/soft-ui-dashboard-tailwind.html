@@ -8,6 +8,69 @@
   if (!aux.includes("pages")) {
     page = "dashboard";
   }
+  $(function() {
+    "use strict";
+  $(".category-item").click(function() {
+    var category = $(this).data("category-id");
+  
+    loadBanks(category); // Now you are passing the specific data
+  });
+
+  function loadBanks(category) {
+    console.log("Progress....");
+    $("#categoryList").hide();
+    $("#listOfBanks").show();
+    console.log(category)
+
+    $.ajax({
+      url: "/learn/resources",
+      type: "POST",
+      data: { id: category, csrfmiddlewaretoken: $("input[name=csrfmiddlewaretoken]").val()},
+      success: function (data) {
+        console.log(data);
+        // Update context
+        $("#listOfBanks").html(data);
+        
+      },
+      error: function (jqXHR, textStatus, errorThrown) {
+        // Handle errors gracefully
+        console.error("AJAX error:", errorThrown);
+      },
+      complete: function () {
+        // Hide spinner after response received
+        $("#loadingSpinner").hide();
+        toggleReadMoreLess();
+      },
+    });
+  }
+
+  function toggleReadMoreLess() {
+    var content = $("#description");
+    var toggleButton = $("#toggleContext");
+    console.log("***************")
+    
+
+    var truncatedContent = content.text().substring(0, 40); // Display first 200 characters initially
+    console.log(truncatedContent);
+    content.data("fullText", content.text()); // Store full text in data attribute
+
+    content.text(truncatedContent + "..."); // Display truncated content
+
+    toggleButton.on("click", function () {
+      if (content.hasClass("showLess")) {
+        // Show less
+        content.text(truncatedContent + "...");
+        toggleButton.text("Read More");
+        content.removeClass("showLess");
+      } else {
+        // Show more
+        content.text(content.data("fullText"));
+        toggleButton.text("Read Less");
+        content.addClass("showLess");
+      }
+    });
+  }
+  });
 
   loadStylesheet("{% static 'assets/css/perfect-scrollbar.css' %}");
   loadJS("{% static 'assets/js/perfect-scrollbar.js' %}", true);
@@ -63,5 +126,41 @@
 
     document.head.appendChild(dynamicStylesheet);
   }
+
+  var contentWayPoint = function() {
+		var i = 0;
+		$('.ftco-animate').waypoint( function( direction ) {
+
+			if( direction === 'down' && !$(this.element).hasClass('ftco-animated') ) {
+				
+				i++;
+
+				$(this.element).addClass('item-animate');
+				setTimeout(function(){
+
+					$('body .ftco-animate.item-animate').each(function(k){
+						var el = $(this);
+						setTimeout( function () {
+							var effect = el.data('animate-effect');
+							if ( effect === 'fadeIn') {
+								el.addClass('fadeIn ftco-animated');
+							} else if ( effect === 'fadeInLeft') {
+								el.addClass('fadeInLeft ftco-animated');
+							} else if ( effect === 'fadeInRight') {
+								el.addClass('fadeInRight ftco-animated');
+							} else {
+								el.addClass('fadeInUp ftco-animated');
+							}
+							el.removeClass('item-animate');
+						},  k * 50, 'easeInOutExpo' );
+					});
+					
+				}, 100);
+				
+			}
+
+		} , { offset: '95%' } );
+	};
+	contentWayPoint();
 
 </script>

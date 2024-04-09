@@ -1,6 +1,7 @@
 from django.db import models
 from django_resized import ResizedImageField
 from django.urls import reverse
+from app.storage_backend import PublicMediaStorage
 
 
 class FinancialServiceCategory(models.Model):
@@ -15,7 +16,7 @@ class Bank(models.Model):
     name = models.CharField(max_length=100)
     category = models.ForeignKey(FinancialServiceCategory, on_delete=models.CASCADE,null=True)
     services = models.TextField()
-    logo = models.ImageField(upload_to='images/', null=True)
+    logo = models.ImageField(storage=PublicMediaStorage(), null=True,blank=True)
     link = models.CharField(max_length=100)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

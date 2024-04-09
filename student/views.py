@@ -1,5 +1,6 @@
 from django.shortcuts import render ,redirect, get_object_or_404
 from django.contrib import messages
+from django.http.response import JsonResponse
 from django.contrib.auth.decorators import login_required
 from .forms import LoginForm, RegistrationForm
 from django.contrib.auth import get_user,authenticate,login,logout,get_user_model
@@ -10,7 +11,7 @@ from django.urls import reverse_lazy
 from coarse.models import Coarse
 from coarse_content.models import CoarseContent
 from coarse_enrollment.models import CoarseEnrollment
-from bank.models import Bank
+from bank.models import Bank ,FinancialServiceCategory
 
 
 @login_required(login_url='/learn/login')
@@ -127,20 +128,26 @@ def my_coarses(request):
     return render(request, 'my_coarse.html',context)
 
 @login_required(login_url='/learn/login')
-def resources(request):
-    try:
-        user = get_user(request)
-        student = Student.objects.get(user=user)
-        user_enrollments = CoarseEnrollment.objects.filter(student=student)
-        banks = Bank.objects.all()
-    except (Student.DoesNotExist):
-        return redirect('logout')
+def finServicesCategory(request):
+    categories = FinancialServiceCategory.objects.all()
+    banks = []
+
+    if request.method == 'POST':
+        id = request.POST['id']
+        category = FinancialServiceCategory.objects.get(id=int(id))
+        banks = Bank.objects.filter(category=category)
+        context = {
+         'category': category,
+         'banks': banks
+         }
+
+        return render(request, 'bank_list.html',context)
+
     context = {
-         'user': user,
-         'user_enrollments': user_enrollments,
+         'categories': categories,
          'banks': banks
      }
-    return render(request, 'learning_resources.html',context)
+    return render(request, 'fin_services_categories.html',context)
 
 @login_required(login_url='/learn/login')
 def learning_resources_details(request):
