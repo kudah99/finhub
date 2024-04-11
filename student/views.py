@@ -12,6 +12,8 @@ from coarse.models import Coarse
 from coarse_content.models import CoarseContent
 from coarse_enrollment.models import CoarseEnrollment
 from bank.models import Bank ,FinancialServiceCategory
+from app.settings import MEDIA_URL
+from home.models import SiteDetails
 
 
 @login_required(login_url='/learn/login')
@@ -20,7 +22,6 @@ def index(request):
         user = get_user(request)
         student = Student.objects.get(user=user)
         user_enrollments = CoarseEnrollment.objects.filter(student=student)
-        print(user_enrollments)
         coarses = Coarse.objects.all()
     except (Student.DoesNotExist):
         if user is not None:
@@ -30,11 +31,13 @@ def index(request):
                 Student.objects.create(user=user)
                 return redirect('learn')
         return redirect('logout')
-
+    site_details = SiteDetails.objects.all().first()
     context = {
          'user': user,
          'user_enrollments': user_enrollments,
-         'coarses': coarses
+         'coarses': coarses,
+         'path': MEDIA_URL ,
+         'site_details':site_details
      }
     return render(request, 'home.html',context)
 
@@ -145,7 +148,8 @@ def finServicesCategory(request):
 
     context = {
          'categories': categories,
-         'banks': banks
+         'banks': banks,
+         'path': MEDIA_URL
      }
     return render(request, 'fin_services_categories.html',context)
 
