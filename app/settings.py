@@ -18,7 +18,7 @@ DEBUG = env('DEBUG')
 SECRET_KEY = env('SECRET_KEY')
 
 
-ALLOWED_HOSTS = ['127.0.0.1','.vercel.app','.now.sh','.ngrok-free.app']
+ALLOWED_HOSTS = ['127.0.0.1','.vercel.app','.now.sh','.ngrok-free.app','.onrender.com']
 
 # Application definition
 
@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'django_browser_reload',
     'import_export',
     'storages',
+    'django_extensions',
     
     'home',
     'theme',
