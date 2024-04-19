@@ -36,7 +36,6 @@ INSTALLED_APPS = [
     'django_browser_reload',
     'import_export',
     'storages',
-    'django_extensions',
     
     'home',
     'theme',
