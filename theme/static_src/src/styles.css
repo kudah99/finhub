@@ -17,4 +17,5 @@
     .my-container {
         @apply flex flex-col md:flex-row items-center p-4 md:p-6 space-y-4 md:space-y-0 md:space-x-4 rounded-xl bg-gray-50 dark:bg-gray-800 hover:shadow-xl transform hover:scale-105 transition duration-500;
     }
+
   }

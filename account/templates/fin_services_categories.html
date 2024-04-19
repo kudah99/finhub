@@ -1,0 +1,39 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+{% csrf_token %}
+<div class="container mx-auto px-4 py-6">
+    <h1 class="text-2xl font-semibold mb-4">Financial Service Providers in Zimbabwe</h1>
+    <div class="overflow-x-auto bg-white rounded-lg shadow overflow-y-auto relative">
+        <div class="container p-6" id="categoryList">
+            <nav aria-label="Breadcrumb">
+                <ol class="list-reset py-4 pl-4 rounded flex bg-grey-light text-grey">
+                    <li><a href="#" class="text-teal-500">Financial service providers</a></li>
+                    <li><span class="mx-2">/</span></li>
+                </ol>
+            </nav>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 ftco-animate fadeInUp ftco-animated" id="categoryList">
+                
+              
+                <button class="border rounded-lg p-4 hover:bg-teal-500 hover:text-white flex flex-row justify-between category-item">
+                    <i class="ni ni-money-coins icon-outline icon-lg icon-stroke-2 ml-1 text-lg"></i>
+                    <h3 class="text-lg">Loans Services</h3>
+                    <i class="material-symbols-outlined ml-1 text-lg">arrow_right_alt</i>
+                </button>
+
+                <button class="border rounded-lg p-4 hover:bg-teal-500 hover:text-white flex flex-row justify-between category-item">
+                  <i class="ni ni-money-coins icon-outline icon-lg icon-stroke-2 ml-1 text-lg"></i>
+                  <h3 class="text-lg">Investments Services</h3>
+                  <i class="material-symbols-outlined ml-1 text-lg">arrow_right_alt</i>
+              </button>
+                
+            </div>
+           
+        </div>
+        <div id="listOfBanks" class="mt-8">
+          
+        </div>
+    </div>
+    
+</div>
+{% endblock %}

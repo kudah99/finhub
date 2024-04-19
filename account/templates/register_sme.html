@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+  <section class="min-h-screen mb-32">
+    <div class="relative flex items-start pt-12 pb-56 m-4 overflow-hidden bg-center bg-cover min-h-50-screen rounded-xl" style="background-image: url('{% static 'assets/img/1690350755155.jpeg' %}')">
+      <span class="absolute top-0 left-0 w-full h-full bg-center bg-cover bg-gradient-to-tl from-teal-900 to-teal-800 opacity-60"></span>
+      <div class="container z-10">
+        <div class="flex flex-wrap justify-center -mx-3">
+          
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="flex flex-wrap -mx-3 -mt-48 md:-mt-56 lg:-mt-48">
+        <div class="w-full max-w-full px-3 mx-auto mt-0 md:flex-0 shrink-0 md:w-7/12 lg:w-5/12 xl:w-4/12">
+          <div class="relative z-0 flex flex-col min-w-0 break-words bg-white border-0 shadow-soft-xl rounded-2xl bg-clip-border">
+            <div class="p-6 mb-0 text-center bg-white border-b-0 rounded-t-2xl">
+              <h3 class="relative z-10 text-transparent bg-gradient-to-tl from-teal-900 to-teal-200 bg-clip-text text-3xl">Tell us more about your business</h3>
+            </div>
+           
+            <div class="flex-auto p-6">
+              <div class="step1 ">
+              <form method="post" role="form text-left">
+                {% csrf_token %}
+                {% if form.non_field_errors %}
+                    {% for error in form.non_field_errors %}
+                      <span class="block my-2 text-red-600 text-sm">{{ error }}</span>
+                    {% endfor %}
+                  {% endif %}
+
+                  {% for field in form %}
+                  <label class="mb-2 ml-1 font-bold text-xs text-slate-700">{{ field.label }}</label>
+                  <div class="mb-4">
+                    {{ field }}
+                    <span class="block my-2 text-red-600 text-sm">{{ field.errors }}</span>
+                  </div>
+                  {% endfor %}  
+                <div class="text-center">
+                  <button id="submit" type="submit" class="inline-block w-full px-6 py-3 mt-6 mb-2 font-bold text-center text-white uppercase align-middle transition-all bg-transparent border-0 rounded-lg cursor-pointer active:opacity-85 hover:scale-102 hover:shadow-soft-xs leading-pro text-xs ease-soft-in tracking-tight-soft shadow-soft-md bg-150 bg-x-25 bg-gradient-to-tl from-teal-900 to-teal-800 hover:border-teal-700 hover:bg-teal-700 hover:text-white">Next</button>
+                </div>
+                
+              </form>
+              </div>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock content %}

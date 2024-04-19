@@ -8,7 +8,7 @@ class CoarseEnrollmentResource(resources.ModelResource):
         model = CoarseEnrollment
 
 class CoarseEnrollmentAdmin(ImportExportModelAdmin, admin.ModelAdmin):
-    list_display = ('id','student', 'coarse','status','progress', 'last_content_accessed', 'updated_at')
+    list_display = ('id','user', 'coarse','status','progress', 'last_content_accessed', 'updated_at')
     search_fields = ('coarse',)
 
     resource_class = CoarseEnrollmentResource

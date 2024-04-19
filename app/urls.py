@@ -11,7 +11,7 @@ admin.site.index_title  =  "FinHub  APP"
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('learn/', include('student.urls')),
+    path('learn/', include('account.urls')),
     path('', include('home.urls')),
     path("__reload__/", include("django_browser_reload.urls")),
     path('martor/', include('martor.urls')),

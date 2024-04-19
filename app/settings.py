@@ -1,13 +1,14 @@
 import os
 import environ
 
-env = environ.Env()
-
 # Set the project base directory
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Take environment variables from .env file
 environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
+
+env = environ.Env()
+
 
 # False if not in os.environ because of casting above
 DEBUG = env('DEBUG')
@@ -17,7 +18,7 @@ DEBUG = env('DEBUG')
 SECRET_KEY = env('SECRET_KEY')
 
 
-ALLOWED_HOSTS = ['127.0.0.1','.vercel.app','medsearch.co.zw','.medsearch.co.zw','.now.sh','.ngrok-free.app']
+ALLOWED_HOSTS = ['127.0.0.1','.vercel.app','.now.sh','.ngrok-free.app']
 
 # Application definition
 
@@ -38,7 +39,7 @@ INSTALLED_APPS = [
     
     'home',
     'theme',
-    'student',
+    'account',
     'coarse',
     'coarse_content',
     'coarse_enrollment',
@@ -46,12 +47,12 @@ INSTALLED_APPS = [
     'martor'
     #'ckeditor'
 ]
+AUTH_USER_MODEL = "account.CustomUser" 
 
 CSRF_TRUSTED_ORIGINS = ["https://818a-197-221-254-203.ngrok-free.app",
                         "https://www.app.cospharm.net", 'http://10.250.153.73','http://192.168.33.45']
 
 
-# AUTH_USER_MODEL = "student.CustomUser"
 
 SITE_ID = 1
 
@@ -117,7 +118,8 @@ DATABASES = {
         'NAME': env('DB_NAME'),
         'USER': env('DB_USER'),
         'PASSWORD': env('DB_PASSWORD'),
-        'HOST': env('DB_HOST')
+        'HOST': env('DB_HOST'),
+        'PORT': env('DB_PORT')
         # 'OPTIONS': {
         #     'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
         # }
