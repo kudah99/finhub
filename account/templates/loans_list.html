@@ -1,0 +1,51 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-6">
+  <div class="bg-white rounded-lg shadow overflow-hidden">
+    <div class="px-4 py-5">
+      <nav aria-label="Breadcrumb">
+        <ol class="list-reset py-3 pl-4 rounded flex bg-grey-light text-grey">
+          <li>
+            <a href="/learn/resources" class="text-teal-600 hover:text-teal-700 transition duration-300 ease-in-out">Financial Service Providers</a>
+          </li>
+          <li><span class="mx-2 text-gray-500">/</span></li>
+          <li class="text-gray-500">Loan Services</li>
+        </ol>
+      </nav>
+      <!-- Filter Section -->
+      <div class="mb-4">
+        <div class="bg-teal-100 border-l-4 border-teal-500 text-teal-700 p-4" role="alert">
+          <p class="font-bold">Personalized Search Results</p>
+          <p>
+              Your search results are tailored based on the following data:
+          </p>
+          <ul>
+              <li><strong>Business Type:</strong> {{ user.sme_registration.type_of_business|default:"Not specified" }}</li>
+              <li><strong>Monthly Income:</strong> {{ user.income_per_month|default:"Not specified" }}</li>
+              <li><strong>Age:</strong> {{  user_age }} yrs</li>
+              <li><strong>Gender:</strong> {{ user.gender|default:"Not specified" }}</li>
+          </ul>
+      </div>
+      
+      </div>
+    </div>
+
+    <!-- Loans List -->
+    <div id="loans-list" class="grid grid-cols-1 md:grid-cols-3 gap-4 p-4">
+      {% for loan in loans %}
+      <a href="{% url 'loan_detail' loan.id %}" class="block">
+      <div class="flex flex-col bg-white border border-gray-200 rounded-lg hover:shadow-lg transition-shadow duration-300">
+        <img class="object-cover w-full h-48 rounded-t-lg" src="{{ path }}{{ loan.service_provider.logo }}" alt="Service Provider Logo">
+        <div class="flex flex-col justify-between p-4 leading-normal">
+          <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">{{ loan.name }}</h5>
+          <p class="mb-3 font-normal text-gray-700">{{ loan.description }}</p>
+        </div>
+      </div>
+    </a>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% endblock %}

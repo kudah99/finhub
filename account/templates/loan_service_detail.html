@@ -1,0 +1,40 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-6">
+  <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+    <nav aria-label="Breadcrumb">
+      <ol class="list-reset py-3 pl-4 rounded flex bg-grey-light text-grey">
+        <li>
+          <a href="/learn/resources" class="text-teal-600 hover:text-blue-700 transition duration-300 ease-in-out">Financial Service Providers</a>
+        </li>
+        <li><span class="mx-2 text-gray-500">/</span></li>
+        <li class="text-gray-500"> <a href="/learn/loans" class="text-teal-600 hover:text-blue-700 transition duration-300 ease-in-out">Loan Services</a></li>
+        <li><span class="mx-2 text-gray-500">/</span></li>
+        <li class="text-gray-500">{{ loan.name }}</a>
+      </ol>
+    </nav>
+    <div class="md:flex">
+      <div class="md:flex-shrink-0">
+        <img src="{{ loan.service_provider.logo}}" alt="{{ loan.service_provider.name }}" class="h-48 w-full object-cover md:h-full md:w-48">
+      </div>
+      <div class="p-8">
+        <div class="uppercase tracking-wide text-sm text-indigo-500 font-semibold">{{ loan.business_type }}</div>
+        <a href="#" class="block mt-1 text-lg leading-tight font-medium text-black hover:underline">{{ loan.name }}</a>
+        <p class="mt-2 text-gray-600">{{ loan.description }}</p>
+      </div>
+    </div>
+    <div class="p-4">
+      <h3 class="text-lg font-semibold text-gray-700">Loan Details</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-600">
+        <div><strong>Minimum Loan Amount:</strong> {{ loan.min_loan_amount|floatformat:2 }}</div>
+        <div><strong>Maximum Loan Amount:</strong> {{ loan.max_loan_amount|floatformat:2 }}</div>
+        <div><strong>Interest Rate:</strong> {{ loan.interest_rate|floatformat:2 }}%</div>
+        <div><strong>Eligibility Criteria:</strong> {{ loan.eligibility_criteria|default:"N/A" }}</div>
+        <div><strong>Minimum Income Required:</strong> {{ loan.min_income_required|floatformat:2 }}</div>
+        <div><strong>Service Provider:</strong> <a href="{{ loan.service_provider.link }}" class="text-indigo-500 hover:text-indigo-600">{{ loan.service_provider.name }}</a></div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

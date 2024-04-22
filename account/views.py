@@ -1,4 +1,5 @@
 from django.shortcuts import render ,redirect, get_object_or_404
+from django import template
 from django.contrib.auth.decorators import login_required
 from .forms import LoginForm, RegistrationForm,SMERegistrationForm
 from django.contrib.auth import get_user,logout
@@ -8,11 +9,14 @@ from django.urls import reverse_lazy
 from coarse.models import Coarse
 from coarse_content.models import CoarseContent
 from coarse_enrollment.models import CoarseEnrollment
-from bank.models import LoanService, InvestmentService
+from financial_service.models import LoanService, InvestmentService
+from django.views.generic import DetailView
+from datetime import date
+from django.db.models import Q
 from django.contrib.auth import login
 from app.settings import MEDIA_URL
 from home.models import SiteDetails
-
+from .models import  SMERegistration
 
 @login_required(login_url='/learn/login')
 def index(request):
@@ -42,14 +46,15 @@ class UserLoginView(LoginView):
 class UserRegistration(CreateView):
    template_name = 'register.html'
    form_class = RegistrationForm
-   success_url = reverse_lazy('register_sme') 
+   success_url = reverse_lazy('learn') 
    
    def form_valid(self, form):
         response = super().form_valid(form)
         user = form.save()
-        print("******************")
-        print(user)
         login(self.request, user)
+        if user.business_owner:
+            # Redirect to SME registration if the user is a business owner
+            self.success_url = reverse_lazy('register_sme')
         return response
 
 
@@ -142,3 +147,46 @@ def learning_resources_details(request):
      }
 
     return render(request, 'learning_resources_details.html',context)
+
+
+def filter_loans(request):
+    user = request.user
+    query = Q()
+
+    # Use the user's SME registration to set the business type filter if available
+    try:
+        sme_registration = SMERegistration.objects.get(user=user)
+        business_type = sme_registration.type_of_business
+        query &= Q(business_type__icontains=business_type)
+    except SMERegistration.DoesNotExist:
+        # Optionally handle cases where the user does not have an SME registration
+        business_type = None
+
+    if user.income_per_month:
+        min_income_required = float(user.income_per_month)
+        query &= Q(min_income_required__lte=min_income_required)
+    else:
+        # Optionally handle cases where the user does not have an income specified
+        query &= Q(min_income_required__isnull=True)
+
+    loans = LoanService.objects.filter(query)
+    user_age = calculate_age(user.date_of_birth)
+    context ={
+        "user":user,
+        "loans":loans,
+        "user_age": user_age,
+        "path": MEDIA_URL
+    }
+    return render(request, 'loans_list.html', context)
+
+
+def calculate_age(born):
+    if born:
+        today = date.today()
+        return today.year - born.year - ((today.month, today.day) < (born.month, born.day))
+    return "Not specified"
+
+class LoanServiceDetailView(DetailView):
+    model = LoanService
+    template_name = 'loan_service_detail.html'
+    context_object_name = 'loan'

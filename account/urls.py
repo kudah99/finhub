@@ -13,4 +13,6 @@ urlpatterns = [
     path('my-coarses', views.my_coarses, name="my_coarses"),
     path('resources', views.finServicesCategory, name="resources"),
     path('learning_resources_details', views.learning_resources_details, name="learning_resources_details"),
+    path('loans/<int:pk>/', views.LoanServiceDetailView.as_view(), name='loan_detail'),
+    path('loans/', views.filter_loans, name='loan_filters')
 ]

@@ -1,6 +1,4 @@
 from django.db import models
-from django_resized import ResizedImageField
-from django.urls import reverse
 from app.storage_backend import PublicMediaStorage
 
 

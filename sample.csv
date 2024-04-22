@@ -1,0 +1,7 @@
+name,description,service_provider_id,business_type,min_loan_amount,max_loan_amount,interest_rate,eligibility_criteria,min_income_required
+Order Financing,"Financing to support the purchase of goods before order fulfillment.",1,"Corporate",5000,25000,5.0,"Must have an established business with over 2 years of operation.",2500
+Micro Leasing,"Leasing of equipment and micro-assets to small businesses.",1,"Small Business",1000,10000,6.0,"Business must be operational for at least 1 year.",1500
+Consumer Loan,"Loans provided to consumers for personal use.",1,"Personal",500,5000,7.0,"Minimum 6 months employment, resident status.",1000
+Microfinance Agriculture Loan,"Loans designed to support small-scale farmers.",1,"Agricultural",2000,20000,4.5,"Must own or lease agricultural land.",1200
+Microfinance Loan,"General purpose loans for microbusiness activities.",1,"Small Business",800,12000,6.5,"Operational business with no outstanding debts.",800
+Short to Medium Term Loans,"Loans with terms from 1 to 5 years for SMEs.",1,"SME",3000,30000,5.5,"Active business with profit for last 2 fiscal years.",1800
