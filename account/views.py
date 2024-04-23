@@ -95,10 +95,10 @@ def enroll_start(request):
 @login_required(login_url='/learn/login')
 def learn_start(request):
     user_enrollment_id = request.GET.get('id', '')
-    user_enrollment = get_object_or_404(CoarseEnrollment, id=user_enrollment_id, user__user=request.user)
+
+    user_enrollment = get_object_or_404(CoarseEnrollment, id=user_enrollment_id, user=request.user)
     
     coarse_contents = CoarseContent.objects.filter(coarse=user_enrollment.coarse)
-
     context = {
         'user_enrollment': user_enrollment,
         'coarse_contents': coarse_contents
@@ -114,7 +114,8 @@ def learning_resources(request):
     coarse_content = CoarseContent.objects.get(id=content_id)
 
     context = {
-         'coarse_content': coarse_content
+         'coarse_content': coarse_content,
+         'path': MEDIA_URL
      }
 
     return render(request, 'resources.html',context)

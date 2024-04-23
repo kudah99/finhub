@@ -50,7 +50,7 @@ INSTALLED_APPS = [
 AUTH_USER_MODEL = "account.CustomUser" 
 
 CSRF_TRUSTED_ORIGINS = ["https://818a-197-221-254-203.ngrok-free.app",
-                        "https://www.app.cospharm.net", 'http://10.250.153.73','http://192.168.33.45']
+                        "https://www.app.cospharm.net", 'http://10.250.153.73','http://192.168.33.45','https://finhub-impn.onrender.com']
 
 
 
