@@ -90,7 +90,8 @@ def enroll_start(request):
         'coarse': coarse,
         'coarse_content': coarse_content
     }
-    return render(request, 'enroll.html', context)
+    return redirect('learn')
+
 
 @login_required(login_url='/learn/login')
 def learn_start(request):
