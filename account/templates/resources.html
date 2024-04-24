@@ -17,7 +17,7 @@
         <div class="relative overflow-hidden">
             <h2 class="text-2xl font-semibold text-gray-800 px-6 pt-6 mb-2">Tutorial {{ coarse_content.id }}</h2>
             <video controls class="w-full h-auto">
-                <source src="{{ coarse_content.video.url }}" type="video/mp4">
+                <source src="{{ path }}{{ coarse_content.video}}" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
         </div>

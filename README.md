@@ -1,7 +1,6 @@
 
 ![GitHub issues](https://img.shields.io/github/issues/kudah99/medsearch)
 ![GitHub License](https://img.shields.io/github/license/kudah99/medsearch)
-
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
@@ -171,7 +170,31 @@ urlpatterns = [
 
 Let's create a simple page layout using Tailwind CSS:
 
+
+I am recent completed my university studies where i undertook a
+degree in Mechatronics engineering. I also had acquired varous certifications
+in programming, AI/ML and devOps engineering to add my knowledge beyond the classroom.
+I have much interest in software engineering and am particalary more delving into artififial intelligence.
+I believe most system will incooperate/intergrated with AI , 
+so i believe it essentiall to have knowdge of AI to become an effective software/system engineer. 
+I am also very much interested in opensource i had contributed to some popular libraries of technologies
+ that I use, and I have developed libraries, one of which is Flutter_ThingsSpeak, 
+ whose most of its functionality is from my final year project, which I decided to wrap into this library. 
+ I could say I am a big fan of open source, seek to grow in it, and am participating in some open source 
+ programs like All in Open Source. I am a hackathon enthusiast. I have won three hackathons, one international 
+ and two local. I love to participate in local tech conferences and meet-ups. I had also been attending national 
+ tech events and had the opportunity to meet government officials, influence certain policy changes, 
+ and interact with them about the accessibility of the internet in most remote parts of the country,
+  which is something that I am passionate about. Last year, I was accepted into the AWS AI and ML Scholarship, 
+  which gives $2500 scholarships to underrepresented individuals in tech across the world.
+Further to this, I was also selected for an additional program offered to the top 500 students of the program.
+
+
 ```html
+Finalists will undergo rounds of interviews by the AU departments/organs 
+and the best 16 will be confirmed as fellows. Selected fellows will be
+ mandated to attend the Fellows Induction Workshop and a virtual pre-deployment 
+training before traveling to Addis Ababa and to be deployed to the AU departments/organs.
 <!DOCTYPE html>
 <html lang="en">
 <head>

@@ -52,9 +52,12 @@ class UserRegistration(CreateView):
         response = super().form_valid(form)
         user = form.save()
         login(self.request, user)
+        print('****************************')
+        print(user.business_owner)
         if user.business_owner:
-            # Redirect to SME registration if the user is a business owner
-            self.success_url = reverse_lazy('register_sme')
+            #self.success_url = reverse_lazy('register_sme')
+            return redirect('register_sme') 
+
         return response
 
 
